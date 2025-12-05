@@ -19,18 +19,15 @@ st.set_page_config(
 def load_model():
     import warnings
     warnings.filterwarnings('ignore')
+    import os
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
     
-    try:
-        # Load the original trained model
-        model = tf.keras.models.load_model(
-            'BEST_MODEL_acc_0.9018_round_33.h5',
-            compile=False
-        )
-        return model
-    except Exception as e:
-        st.error(f"Error loading model: {str(e)[:200]}")
-        st.info("Make sure you're using Python 3.10 with TensorFlow 2.15.0")
-        return None
+    # Load the original trained model
+    model = tf.keras.models.load_model(
+        'BEST_MODEL_acc_0.9018_round_33.h5',
+        compile=False
+    )
+    return model
 
 # Preprocess image - matching training preprocessing
 def preprocess_image(image, target_size=(224, 224)):  # Match training IMG_SIZE=224
